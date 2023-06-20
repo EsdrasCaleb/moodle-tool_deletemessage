@@ -24,7 +24,7 @@
 namespace tool_deletemessage\task;
 
 use core\task\scheduled_task;
-use tool_brasosinc\api;
+use core_message\api;
 
 class sinc extends scheduled_task {
     public function get_name() {
@@ -33,6 +33,11 @@ class sinc extends scheduled_task {
 
     public function execute() {
         mtrace(get_string('taskname', 'tool_deletemessage'));
-
+        global $DB;
+        $sql = "";
+        $deletedconversation = $DB->get_records_sql($sql);
+        foreach ($deletedconversation as $conversation) {
+            \core_message\api::delete_all_conversation_data($conversation->id);
+        }
     }
 }
