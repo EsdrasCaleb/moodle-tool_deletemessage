@@ -24,5 +24,5 @@
  */
 
 $string['pluginname'] = 'Delete Messages';
-$string['taksname'] = "Hard delete deleted messages";
+$string['taskname'] = "Hard delete deleted messages";
 $string['privacy:metadata'] = 'The local aws plugin does not store any personal data. However, it send the IP of a user that had an error to the sentry server configured in it.';

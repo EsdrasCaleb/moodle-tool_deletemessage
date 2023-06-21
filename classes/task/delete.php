@@ -26,7 +26,7 @@ namespace tool_deletemessage\task;
 use core\task\scheduled_task;
 use core_message\api;
 
-class sinc extends scheduled_task {
+class delete extends scheduled_task {
     public function get_name() {
         return get_string('taskname', 'tool_deletemessage');
     }
@@ -42,7 +42,7 @@ class sinc extends scheduled_task {
                     JOIN {message_user_actions} ua on ua.messageid=m.id 
 					and ua.action={$delteaction}
                     GROUP BY c.id
-                    HAVING count(ua.id) >=2*count( DISTINCT m.id)";
+                    HAVING count(ua.id) >=2*count(DISTINCT m.id)";
         $deletedconversation = $DB->get_records_sql($sql);
         foreach ($deletedconversation as $conversation) {
             \core_message\api::delete_all_conversation_data($conversation->id);
