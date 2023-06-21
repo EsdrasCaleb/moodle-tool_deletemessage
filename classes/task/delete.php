@@ -36,12 +36,13 @@ class sinc extends scheduled_task {
         global $DB;
         $individualmessage = \core_message\api::MESSAGE_CONVERSATION_TYPE_INDIVIDUAL;//1
         $delteaction = \core_message\api::MESSAGE_ACTION_DELETED;//2
-        $sql = "SELECT c.id,count(ua.id) as deletados FROM {message_conversations} c
-                    JOIN {messages} m on m.conversationid =c.id
-                    JOIN {message_user_actions} ua on ua.messageid=m.id and ua.action={$delteaction}
-                    where c.type={$individualmessage}
+        $sql = "SELECT c.id,count(ua.id) as usuarios_deletado,count(DISTINCT m.id) as mensagens FROM {message_conversations} c
+                    JOIN {messages} m on m.conversationid =c.id 
+					and c.type={$individualmessage}
+                    JOIN {message_user_actions} ua on ua.messageid=m.id 
+					and ua.action={$delteaction}
                     GROUP BY c.id
-                    HAVING count(ua.id) >=2";
+                    HAVING count(ua.id) >=2*count( DISTINCT m.id)";
         $deletedconversation = $DB->get_records_sql($sql);
         foreach ($deletedconversation as $conversation) {
             \core_message\api::delete_all_conversation_data($conversation->id);
