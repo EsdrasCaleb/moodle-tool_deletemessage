@@ -17,7 +17,7 @@
 /**
  * Provides a way to hard delete messagens in moodle
  *
- * @package    tool_deletemessages
+ * @package    tool_deletemessage
  * @copyright  2023 Esdras Caleb
  * @author     Esdras Caleb <esdrascaleb@gmail.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -32,7 +32,7 @@ $plugin->version = 2023051715;
 $plugin->requires  = 2013050100; // Requires this Moodle version - at least 2.0.
 
 // Full name of the plugin.
-$plugin->component = 'tool_deletemessages';
+$plugin->component = 'tool_deletemessage';
 
 // Software maturity level.
 $plugin->maturity = MATURITY_RC;

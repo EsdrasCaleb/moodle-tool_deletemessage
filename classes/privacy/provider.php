@@ -22,7 +22,7 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-namespace tool_sentry\privacy;
+namespace tool_deletemessage\privacy;
 /**
  * Class provider to provide info of data shared
  * @author    Esdras Caleb
