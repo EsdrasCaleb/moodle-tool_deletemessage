@@ -23,14 +23,31 @@
  */
 namespace tool_deletemessage\task;
 
+/**
+ * Class delete to execute the task that deletes the messages from the users
+ * @author    Esdras Caleb
+ * @copyright  2023 Esdras Caleb
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
 use core\task\scheduled_task;
 use core_message\api;
 
 class delete extends scheduled_task {
+    /**
+     * Get the name of the task
+     *
+     * @return  void
+     */
     public function get_name() {
         return get_string('taskname', 'tool_deletemessage');
     }
 
+    /**
+     * Execute the taks that delete the conversations that both users has deleted all messages in database
+     *
+     * @return  void
+     */
     public function execute() {
         mtrace(get_string('taskname', 'tool_deletemessage'));
         global $DB;
