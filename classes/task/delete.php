@@ -23,7 +23,6 @@
  */
 namespace tool_deletemessage\task;
 
-defined('MOODLE_INTERNAL') || die();
 
 use core\task\scheduled_task;
 use core_message\api;
