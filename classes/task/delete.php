@@ -23,16 +23,16 @@
  */
 namespace tool_deletemessage\task;
 
+
+
+use core\task\scheduled_task;
+use core_message\api;
 /**
  * Class delete to execute the task that deletes the messages from the users
  * @author    Esdras Caleb
  * @copyright  2023 Esdras Caleb
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-
-use core\task\scheduled_task;
-use core_message\api;
-
 class delete extends scheduled_task {
     /**
      * Get the name of the task
@@ -51,8 +51,8 @@ class delete extends scheduled_task {
     public function execute() {
         mtrace(get_string('taskname', 'tool_deletemessage'));
         global $DB;
-        $individualmessage = \core_message\api::MESSAGE_CONVERSATION_TYPE_INDIVIDUAL;//1
-        $delteaction = \core_message\api::MESSAGE_ACTION_DELETED;//2
+        $individualmessage = \core_message\api::MESSAGE_CONVERSATION_TYPE_INDIVIDUAL;// 1
+        $delteaction = \core_message\api::MESSAGE_ACTION_DELETED;// 2
         $sql = "SELECT c.id,count(ua.id) as usuarios_deletado,count(DISTINCT m.id) as mensagens FROM {message_conversations} c
                     JOIN {messages} m on m.conversationid =c.id 
 					and c.type={$individualmessage}
