@@ -23,7 +23,7 @@
  */
 namespace tool_deletemessage\task;
 
-
+defined('MOODLE_INTERNAL') || die();
 
 use core\task\scheduled_task;
 use core_message\api;
@@ -54,9 +54,9 @@ class delete extends scheduled_task {
         $individualmessage = \core_message\api::MESSAGE_CONVERSATION_TYPE_INDIVIDUAL;// 1
         $delteaction = \core_message\api::MESSAGE_ACTION_DELETED;// 2
         $sql = "SELECT c.id,count(ua.id) as usuarios_deletado,count(DISTINCT m.id) as mensagens FROM {message_conversations} c
-                    JOIN {messages} m on m.conversationid =c.id 
+                    JOIN {messages} m on m.conversationid =c.id
 					and c.type={$individualmessage}
-                    JOIN {message_user_actions} ua on ua.messageid=m.id 
+                    JOIN {message_user_actions} ua on ua.messageid=m.id
 					and ua.action={$delteaction}
                     GROUP BY c.id
                     HAVING count(ua.id) >=2*count(DISTINCT m.id)";
