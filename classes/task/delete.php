@@ -60,7 +60,7 @@ class delete extends scheduled_task {
                     JOIN {messages} m on m.conversationid =c.id
 					and c.type={$individualmessage} and m.timecreated<$reftime
                     JOIN {message_user_actions} ua on ua.messageid=m.id
-					and ua.action={$viewaction} and au.timecreated<$reftime";
+					and ua.action={$viewaction} and ua.timecreated<$reftime";
             $readmessagens = $DB->get_records_sql($sql);
             foreach ($readmessagens as $readmessage) {
                 \core_message\api::delete_message($readmessage->messageid, $readmessage->userid);
