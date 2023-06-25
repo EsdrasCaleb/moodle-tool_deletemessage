@@ -32,11 +32,13 @@ if (is_siteadmin()) {
         $default = 0;
         $options = array(
             0 => new lang_string('never'),
-            DAYSECS => new lang_string('secondstotime86400'),
-            WEEKSECS => new lang_string('secondstotime604800'),
             2620800 => new lang_string('nummonths', 'moodle', 1),
             7862400 => new lang_string('nummonths', 'moodle', 3),
-            15724800 => new lang_string('nummonths', 'moodle', 6)
+            15724800 => new lang_string('nummonths', 'moodle', 6),
+            23587200 => new lang_string('nummonths', 'moodle', 9),
+            31449600 => new lang_string('numyears', 'moodle', 1),
+            47174400 => new lang_string('nummonths', 'moodle', 18),
+            62899200 => new lang_string('numyears', 'moodle', 2)
         );
 
         $page->add(new admin_setting_configselect('tool_deletemessage/deletereadmessages', get_string('deleteread', 'tool_deletemessage'),
