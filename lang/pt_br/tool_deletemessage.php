@@ -23,11 +23,11 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$string['pluginname'] = 'Delete Messages';
-$string['taskname'] = "Hard delete deleted messages";
-$string['settingspage'] = 'Auto Delete Messages';
-$string['deleteread'] = 'Delete read messages';
-$string['deleteread_desc'] = 'Read messages can be deleted to save space. How long after a notification is read can it be deleted?';
-$string['deleteall'] = 'Delete all messages';
-$string['deleteall_desc'] = 'Read and unread messages can be deleted to save space. How long after a notification is created can it be deleted?';
-$string['privacy:metadata'] = 'The local aws plugin does not store any personal data. However, it send the IP of a user that had an error to the sentry server configured in it.';
+$string['pluginname'] = 'Deletar Mensagens';
+$string['taskname'] = "Deletar permanentemente mensagens já excluidas";
+$string['settingspage'] = 'Excluir Mensages Automaticamente';
+$string['deleteread'] = ' Excluir mensagens já lidas ';
+$string['deleteread_desc'] = 'Mensagens já lidas podem ser excluídas para economizar espaço. Quanto tempo após a sua leitura uma notificação pode ser excluída?';
+$string['deleteall'] = 'Excluir todas as mensagens ';
+$string['deleteall_desc'] = 'Mensagens lidas e não lidas podem ser excluídas para economizar espaço. Quanto tempo após a criação da notificação ela pode ser excluída?';
+$string['privacy:metadata'] = 'O plug-in não armazena nenhum dado pessoal. No entanto, ele envia o IP de um usuário que teve um erro para o servidor sentinela configurado nele.';
