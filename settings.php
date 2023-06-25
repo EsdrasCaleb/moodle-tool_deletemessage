@@ -19,12 +19,13 @@
  *
  * @package    tool_deletemessage
  * @author     Esdras Caleb <esdrascaleb@gmail.com>
+ * @copyright  2023 Esdras Caleb
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die;
 
-global $CFG,$ADMIN;
+global $CFG, $ADMIN;
 
 if (is_siteadmin()) {
     if (!$ADMIN->locate('tool_deletemessage')) {
@@ -41,10 +42,12 @@ if (is_siteadmin()) {
             62899200 => new lang_string('numyears', 'moodle', 2)
         );
 
-        $page->add(new admin_setting_configselect('tool_deletemessage/deletereadmessages', get_string('deleteread', 'tool_deletemessage'),
-            get_string('deleteread_desc', 'tool_deletemessage'),$default,$options));
-        $page->add(new admin_setting_configselect('tool_deletemessage/deleteallmessages', get_string('deleteall', 'tool_deletemessage'),
-            get_string('deleteall_desc', 'tool_deletemessage'),$default,$options));
+        $page->add(new admin_setting_configselect('tool_deletemessage/deletereadmessages',
+            get_string('deleteread', 'tool_deletemessage'),
+            get_string('deleteread_desc', 'tool_deletemessage'), $default, $options));
+        $page->add(new admin_setting_configselect('tool_deletemessage/deleteallmessages',
+            get_string('deleteall', 'tool_deletemessage'),
+            get_string('deleteall_desc', 'tool_deletemessage'), $default, $options));
 
         $ADMIN->add('messaging', $page);
 
