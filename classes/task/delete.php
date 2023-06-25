@@ -54,7 +54,7 @@ class delete extends scheduled_task {
         $individualmessage = \core_message\api::MESSAGE_CONVERSATION_TYPE_INDIVIDUAL;// 1
         $delteaction = \core_message\api::MESSAGE_ACTION_DELETED;// 2
         $viewaction = \core_message\api::MESSAGE_ACTION_READ;// 1
-        if($configs->deletereadmessages > 0) {
+        if ($configs->deletereadmessages > 0) {
             $reftime = time() - $configs->deletereadmessages;
             $sql = "SELECT m.id as messageid,ua.userid FROM {message_conversations} c
                     JOIN {messages} m on m.conversationid =c.id
@@ -62,17 +62,17 @@ class delete extends scheduled_task {
                     JOIN {message_user_actions} ua on ua.messageid=m.id
 					and ua.action={$viewaction} and au.timecreated<$reftime";
             $readmessagens = $DB->get_records_sql($sql);
-            foreach ($readmessagens as $readmessage){
+            foreach ($readmessagens as $readmessage) {
                 \core_message\api::delete_message($readmessage->messageid, $readmessage->userid);
             }
         }
-        if($configs->deleteallmessages > 0) {
+        if ($configs->deleteallmessages > 0) {
             $reftime = time() - $configs->deleteallmessages;
             $sql = "SELECT m.id as messageid,m.useridfrom,m.useridto FROM {message_conversations} c
                     JOIN {messages} m on m.conversationid =c.id
 					and c.type={$individualmessage} and m.timecreated<$reftime";
             $readmessagens = $DB->get_records_sql($sql);
-            foreach ($readmessagens as $readmessage){
+            foreach ($readmessagens as $readmessage) {
                 \core_message\api::delete_message($readmessage->messageid, $readmessage->useridfrom);
                 \core_message\api::delete_message($readmessage->messageid, $readmessage->useridto);
             }
