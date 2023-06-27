@@ -70,7 +70,7 @@ class delete extends scheduled_task {
                 $readmessagens = $DB->get_records_sql($sql, array($individualmessage, $reftime, $viewaction, $reftime,
                     $user->userid, $delteaction));
                 foreach ($readmessagens as $readmessage) {
-                    \core_message\api::delete_message($readmessage->messageid, $readmessage->userid);
+                    \core_message\api::delete_message($readmessage->userid, $readmessage->messageid);
                 }
             }
         }
@@ -89,7 +89,7 @@ class delete extends scheduled_task {
                 $readmessagens = $DB->get_records_sql($sql, array($individualmessage, $reftime, $user->userid,
                     $delteaction));
                 foreach ($readmessagens as $readmessage) {
-                    \core_message\api::delete_message($readmessage->messageid, $readmessage->useridfrom);
+                    \core_message\api::delete_message($readmessage->useridfrom, $readmessage->messageid);
                 }
             }
         }
