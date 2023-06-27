@@ -65,7 +65,7 @@ class delete extends scheduled_task {
 					and c.type=? and m.timecreated<?
                     JOIN {message_user_actions} ua on ua.messageid=m.id
 					and ua.action=? and ua.timecreated<? and ua.userid=?
-					LEFT JOIN {message_user_actions} uad on uad.messageid=m.id and ua.action=?
+					LEFT JOIN {message_user_actions} uad on uad.messageid=m.id and uad.action=?
 					WHERE uad.id is null";
                 $readmessagens = $DB->get_records_sql($sql, array($individualmessage, $reftime, $viewaction, $reftime,
                     $user->userid, $delteaction));
@@ -84,7 +84,7 @@ class delete extends scheduled_task {
                 $sql = "SELECT m.id as messageid,m.useridfrom FROM {message_conversations} c
                         JOIN {messages} m on m.conversationid =c.id
                         and c.type=? and m.timecreated<? and m.useridfrom=?
-                        LEFT JOIN {message_user_actions} uad on uad.messageid=m.id and ua.action=?
+                        LEFT JOIN {message_user_actions} uad on uad.messageid=m.id and uad.action=?
 					    WHERE uad.id is null";
                 $readmessagens = $DB->get_records_sql($sql, array($individualmessage, $reftime, $user->userid,
                     $delteaction));
