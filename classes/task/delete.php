@@ -62,10 +62,10 @@ class delete extends scheduled_task {
             foreach ($users as $user) {
                 $sql = "SELECT m.id as messageid,ua.userid FROM {message_conversations} c
                     JOIN {messages} m on m.conversationid =c.id
-					and c.type={$individualmessage} and m.timecreated<{$reftime}
+					and c.type=? and m.timecreated<?
                     JOIN {message_user_actions} ua on ua.messageid=m.id
-					and ua.action={$viewaction} and ua.timecreated<{$reftime} and ua.userid={$user->userid}";
-                $readmessagens = $DB->get_records_sql($sql);
+					and ua.action=? and ua.timecreated<? and ua.userid=?";
+                $readmessagens = $DB->get_records_sql($sql, array($individualmessage, $reftime, $viewaction, $reftime, $user->userid));
                 foreach ($readmessagens as $readmessage) {
                     \core_message\api::delete_message($readmessage->messageid, $readmessage->userid);
                 }
@@ -80,8 +80,8 @@ class delete extends scheduled_task {
                 $reftime = time() - $configs->deleteallmessages;
                 $sql = "SELECT m.id as messageid,m.useridfrom FROM {message_conversations} c
                         JOIN {messages} m on m.conversationid =c.id
-                        and c.type={$individualmessage} and m.timecreated<{$reftime} and m.useridfrom={$user->userid}";
-                $readmessagens = $DB->get_records_sql($sql);
+                        and c.type=? and m.timecreated<? and m.useridfrom=?";
+                $readmessagens = $DB->get_records_sql($sql, array($individualmessage, $reftime, $user->userid));
                 foreach ($readmessagens as $readmessage) {
                     \core_message\api::delete_message($readmessage->messageid, $readmessage->useridfrom);
                 }
@@ -95,7 +95,7 @@ class delete extends scheduled_task {
 					and ua.action=?
                     GROUP BY c.id
                     HAVING count(ua.id) >=2*count(DISTINCT m.id)";
-        $deletedconversation = $DB->get_records_sql($sql,array($individualmessage,$delteaction));
+        $deletedconversation = $DB->get_records_sql($sql, array($individualmessage, $delteaction));
         foreach ($deletedconversation as $conversation) {
             \core_message\api::delete_all_conversation_data($conversation->id);
         }
