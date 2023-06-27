@@ -36,7 +36,7 @@ class delete extends scheduled_task {
     /**
      * Get the name of the task
      *
-     * @return  void
+     * @return  string
      */
     public function get_name() {
         return get_string('taskname', 'tool_deletemessage');
