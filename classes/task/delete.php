@@ -58,7 +58,7 @@ class delete extends scheduled_task {
         $users = null;
         $whereaction = "WHERE uad.id is null";
 
-        if($configs->harddelete) {
+        if ($configs->harddelete) {
             $whereaction = "";
         }
         if ($configs->deletereadmessages > 0) {
@@ -74,9 +74,9 @@ class delete extends scheduled_task {
 					LEFT JOIN {message_user_actions} uad on uad.messageid=m.id and uad.action=?
 					{$whereaction}";
                 $readmessagens = $DB->get_records_sql($sql, [$individualmessage, $reftime, $viewaction, $reftime,
-                    $user->userid, $delteaction,]);
+                    $user->userid, $delteaction, ]);
                 foreach ($readmessagens as $readmessage) {
-                    if($configs->harddelete) {
+                    if ($configs->harddelete) {
                         \core_message\api::delete_message($readmessage->userid, $readmessage->messageid);
                     }
                 }
@@ -95,7 +95,7 @@ class delete extends scheduled_task {
                         LEFT JOIN {message_user_actions} uad on uad.messageid=m.id and uad.action=?
 					    {$whereaction}";
                 $readmessagens = $DB->get_records_sql($sql, [$individualmessage, $reftime, $user->userid,
-                    $delteaction,]);
+                    $delteaction, ]);
                 foreach ($readmessagens as $readmessage) {
                     if ($configs->harddelete) {
                         hard_delete_message($readmessage->messageid);
@@ -113,7 +113,7 @@ class delete extends scheduled_task {
 					and ua.action=?
                     GROUP BY c.id
                     HAVING count(ua.id) >=2*count(DISTINCT m.id)";
-        $deletedconversation = $DB->get_records_sql($sql, array($individualmessage, $delteaction));
+        $deletedconversation = $DB->get_records_sql($sql, [$individualmessage, $delteaction, ]);
         foreach ($deletedconversation as $conversation) {
             \core_message\api::delete_all_conversation_data($conversation->id);
         }
