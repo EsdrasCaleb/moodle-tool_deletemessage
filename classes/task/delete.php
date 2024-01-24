@@ -58,7 +58,7 @@ class delete extends scheduled_task {
         $users = null;
         $whereaction = "WHERE uad.id is null";
 
-        if($configs->harddelete){
+        if($configs->harddelete) {
             $whereaction = "";
         }
         if ($configs->deletereadmessages > 0) {
@@ -73,8 +73,8 @@ class delete extends scheduled_task {
 					and ua.action=? and ua.timecreated<? and ua.userid=?
 					LEFT JOIN {message_user_actions} uad on uad.messageid=m.id and uad.action=?
 					{$whereaction}";
-                $readmessagens = $DB->get_records_sql($sql, array($individualmessage, $reftime, $viewaction, $reftime,
-                    $user->userid, $delteaction));
+                $readmessagens = $DB->get_records_sql($sql, [$individualmessage, $reftime, $viewaction, $reftime,
+                    $user->userid, $delteaction,]);
                 foreach ($readmessagens as $readmessage) {
                     if($configs->harddelete) {
                         \core_message\api::delete_message($readmessage->userid, $readmessage->messageid);
@@ -94,13 +94,12 @@ class delete extends scheduled_task {
                         and c.type=? and m.timecreated<? and m.useridfrom=?
                         LEFT JOIN {message_user_actions} uad on uad.messageid=m.id and uad.action=?
 					    {$whereaction}";
-                $readmessagens = $DB->get_records_sql($sql, array($individualmessage, $reftime, $user->userid,
-                    $delteaction));
+                $readmessagens = $DB->get_records_sql($sql, [$individualmessage, $reftime, $user->userid,
+                    $delteaction,]);
                 foreach ($readmessagens as $readmessage) {
-                    if($configs->harddelete) {
+                    if ($configs->harddelete) {
                         hard_delete_message($readmessage->messageid);
-                    }
-                    else{
+                    } else {
                         \core_message\api::delete_message($readmessage->useridfrom, $readmessage->messageid);
                     }
                 }

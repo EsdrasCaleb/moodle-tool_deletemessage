@@ -25,7 +25,7 @@
 
 /**
  * Hard delete a message from database
- * @param $id - message id
+ * @param int $id  message id
  * @return void
  */
 function hard_delete_message($id) {

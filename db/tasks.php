@@ -25,13 +25,13 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$tasks = array(
-    array(
+$tasks = [
+    [
         'classname' => 'tool_deletemessage\task\delete',
         'blocking' => 0,
         'minute' => '0',
         'hour' => '0',
         'dayofweek' => '*',
-        'month' => '*'
-    ),
-);
+        'month' => '*',
+    ],
+];
