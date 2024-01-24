@@ -50,12 +50,17 @@ class delete extends scheduled_task {
     public function execute() {
         mtrace(get_string('taskname', 'tool_deletemessage'));
         global $DB, $CFG;
-        require_once $CFG->dirroot.'/admin/tool/locallib.php';
+        require_once $CFG->dirroot.'/admin/tool/deletemessage/locallib.php';
         $configs = get_config('tool_deletemessage');
         $individualmessage = \core_message\api::MESSAGE_CONVERSATION_TYPE_INDIVIDUAL;// 1
         $delteaction = \core_message\api::MESSAGE_ACTION_DELETED;// 2
         $viewaction = \core_message\api::MESSAGE_ACTION_READ;// 1
         $users = null;
+        $whereaction = "WHERE uad.id is null";
+
+        if($configs->harddelete){
+            $whereaction = "";
+        }
         if ($configs->deletereadmessages > 0) {
             $reftime = time() - $configs->deletereadmessages;
             $sql = "SELECT distinct userid from {message_conversation_members}";
@@ -67,12 +72,13 @@ class delete extends scheduled_task {
                     JOIN {message_user_actions} ua on ua.messageid=m.id
 					and ua.action=? and ua.timecreated<? and ua.userid=?
 					LEFT JOIN {message_user_actions} uad on uad.messageid=m.id and uad.action=?
-					WHERE uad.id is null";
+					{$whereaction}";
                 $readmessagens = $DB->get_records_sql($sql, array($individualmessage, $reftime, $viewaction, $reftime,
                     $user->userid, $delteaction));
                 foreach ($readmessagens as $readmessage) {
-                    if($configs)
-                    \core_message\api::delete_message($readmessage->userid, $readmessage->messageid);
+                    if($configs->harddelete) {
+                        \core_message\api::delete_message($readmessage->userid, $readmessage->messageid);
+                    }
                 }
             }
         }
@@ -87,7 +93,7 @@ class delete extends scheduled_task {
                         JOIN {messages} m on m.conversationid =c.id
                         and c.type=? and m.timecreated<? and m.useridfrom=?
                         LEFT JOIN {message_user_actions} uad on uad.messageid=m.id and uad.action=?
-					    WHERE uad.id is null";
+					    {$whereaction}";
                 $readmessagens = $DB->get_records_sql($sql, array($individualmessage, $reftime, $user->userid,
                     $delteaction));
                 foreach ($readmessagens as $readmessage) {
