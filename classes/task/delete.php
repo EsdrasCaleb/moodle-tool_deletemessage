@@ -49,7 +49,8 @@ class delete extends scheduled_task {
      */
     public function execute() {
         mtrace(get_string('taskname', 'tool_deletemessage'));
-        global $DB;
+        global $DB, $CFG;
+        require_once $CFG->dirroot.'/admin/tool/locallib.php';
         $configs = get_config('tool_deletemessage');
         $individualmessage = \core_message\api::MESSAGE_CONVERSATION_TYPE_INDIVIDUAL;// 1
         $delteaction = \core_message\api::MESSAGE_ACTION_DELETED;// 2
@@ -70,6 +71,7 @@ class delete extends scheduled_task {
                 $readmessagens = $DB->get_records_sql($sql, array($individualmessage, $reftime, $viewaction, $reftime,
                     $user->userid, $delteaction));
                 foreach ($readmessagens as $readmessage) {
+                    if($configs)
                     \core_message\api::delete_message($readmessage->userid, $readmessage->messageid);
                 }
             }
@@ -89,7 +91,12 @@ class delete extends scheduled_task {
                 $readmessagens = $DB->get_records_sql($sql, array($individualmessage, $reftime, $user->userid,
                     $delteaction));
                 foreach ($readmessagens as $readmessage) {
-                    \core_message\api::delete_message($readmessage->useridfrom, $readmessage->messageid);
+                    if($configs->harddelete) {
+                        hard_delete_message($readmessage->messageid);
+                    }
+                    else{
+                        \core_message\api::delete_message($readmessage->useridfrom, $readmessage->messageid);
+                    }
                 }
             }
         }

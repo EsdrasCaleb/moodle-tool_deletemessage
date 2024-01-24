@@ -24,10 +24,12 @@
  */
 
 $string['pluginname'] = 'Delete Messages';
-$string['taskname'] = "Hard delete deleted messages";
+$string['taskname'] = "Auto delete deleted messages";
 $string['settingspage'] = 'Auto Delete Messages';
 $string['deleteread'] = 'Delete read messages';
 $string['deleteread_desc'] = 'Read messages can be deleted to save space. How long after a notification is read can it be deleted?';
 $string['deleteall'] = 'Delete all messages';
 $string['deleteall_desc'] = 'Read and unread messages can be deleted to save space. How long after a notification is created can it be deleted?';
 $string['privacy:metadata'] = 'The local aws plugin does not store any personal data. However, it send the IP of a user that had an error to the sentry server configured in it.';
+$string['harddelete'] = "Hard Delete Messages";
+$string['harddelete_desc'] = "All Deleted messages by this plugin will be deleted from database";

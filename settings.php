@@ -49,6 +49,10 @@ if (is_siteadmin()) {
             get_string('deleteall', 'tool_deletemessage'),
             get_string('deleteall_desc', 'tool_deletemessage'), $default, $options));
 
+        $page->add(new admin_setting_configcheckbox('tool_deletemessage/harddelete',
+            get_string('harddelete', 'tool_deletemessage'),
+            get_string('harddelete_desc', 'tool_deletemessage'), $default));
+
         $ADMIN->add('messaging', $page);
 
     }
