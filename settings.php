@@ -31,7 +31,7 @@ if (is_siteadmin()) {
     if (!$ADMIN->locate('tool_deletemessage')) {
         $page = new admin_settingpage('tool_deletemessage', get_string('settingspage', 'tool_deletemessage'));
         $default = 0;
-        $options = array(
+        $options = [
             0 => new lang_string('never'),
             2620800 => new lang_string('nummonths', 'moodle', 1),
             7862400 => new lang_string('nummonths', 'moodle', 3),
@@ -39,8 +39,8 @@ if (is_siteadmin()) {
             23587200 => new lang_string('nummonths', 'moodle', 9),
             31449600 => new lang_string('numyears', 'moodle', 1),
             47174400 => new lang_string('nummonths', 'moodle', 18),
-            62899200 => new lang_string('numyears', 'moodle', 2)
-        );
+            62899200 => new lang_string('numyears', 'moodle', 2),
+        ];
 
         $page->add(new admin_setting_configselect('tool_deletemessage/deletereadmessages',
             get_string('deleteread', 'tool_deletemessage'),

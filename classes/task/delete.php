@@ -50,7 +50,7 @@ class delete extends scheduled_task {
     public function execute() {
         mtrace(get_string('taskname', 'tool_deletemessage'));
         global $DB, $CFG;
-        require_once $CFG->dirroot.'/admin/tool/deletemessage/locallib.php';
+        require_once($CFG->dirroot.'/admin/tool/deletemessage/locallib.php');
         $configs = get_config('tool_deletemessage');
         $individualmessage = \core_message\api::MESSAGE_CONVERSATION_TYPE_INDIVIDUAL;// 1
         $delteaction = \core_message\api::MESSAGE_ACTION_DELETED;// 2

@@ -23,11 +23,14 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-function hard_delete_message($id)
-{
+/**
+ * Hard delete a message from database
+ * @param $id - message id
+ * @return void
+ */
+function hard_delete_message($id) {
     global $DB;
-    $DB->delete_records('message_user_actions', ["messageid"=>$id]);
-    $DB->delete_records('messages', ["id"=>$id]);
-    $DB->delete_records('message_email_messages',["id"=>$id]);
-
+    $DB->delete_records('message_user_actions', ["messageid" => $id]);
+    $DB->delete_records('messages', ["id" => $id]);
+    $DB->delete_records('message_email_messages', ["id" => $id]);
 }
