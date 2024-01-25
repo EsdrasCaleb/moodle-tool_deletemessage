@@ -5,6 +5,7 @@ This plugin allows you to perma delete these messages. And also mark read messag
 some time. In the same way, Moodle enables you to do notifications.
 To use it go to Administration > Messages > Auto Delete Messages and set the time
 when you want messages to be auto deleted.
+To install the plugin use the admin panel or put it in the tools folder in MOODLE_DIR_ROOT/admin/tool
 
 
 License
