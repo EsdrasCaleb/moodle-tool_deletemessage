@@ -105,7 +105,7 @@ class delete extends scheduled_task {
                 }
             }
         }
-        if($configs->cleanmessage) {
+        if ($configs->cleanmessage) {
             $sql = "SELECT c.id,count(ua.id) as usuarios_deletado,count(DISTINCT m.id) as mensagens FROM {message_conversations} c
                     JOIN {messages} m on m.conversationid =c.id
 					and c.type=?
