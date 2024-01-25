@@ -113,7 +113,7 @@ class delete extends scheduled_task {
 					and ua.action=?
                     GROUP BY c.id
                     HAVING count(ua.id) >=2*count(DISTINCT m.id)";
-        $deletedconversation = $DB->get_records_sql($sql, [$individualmessage, $delteaction, ]);
+        $deletedconversation = $DB->get_records_sql($sql, [$individualmessage, $delteaction]);
         foreach ($deletedconversation as $conversation) {
             \core_message\api::delete_all_conversation_data($conversation->id);
         }
