@@ -105,17 +105,18 @@ class delete extends scheduled_task {
                 }
             }
         }
-
-        $sql = "SELECT c.id,count(ua.id) as usuarios_deletado,count(DISTINCT m.id) as mensagens FROM {message_conversations} c
+        if($configs->cleanmessage) {
+            $sql = "SELECT c.id,count(ua.id) as usuarios_deletado,count(DISTINCT m.id) as mensagens FROM {message_conversations} c
                     JOIN {messages} m on m.conversationid =c.id
 					and c.type=?
                     JOIN {message_user_actions} ua on ua.messageid=m.id
 					and ua.action=?
                     GROUP BY c.id
                     HAVING count(ua.id) >=2*count(DISTINCT m.id)";
-        $deletedconversation = $DB->get_records_sql($sql, [$individualmessage, $delteaction]);
-        foreach ($deletedconversation as $conversation) {
-            \core_message\api::delete_all_conversation_data($conversation->id);
+            $deletedconversation = $DB->get_records_sql($sql, [$individualmessage, $delteaction]);
+            foreach ($deletedconversation as $conversation) {
+                \core_message\api::delete_all_conversation_data($conversation->id);
+            }
         }
     }
 }

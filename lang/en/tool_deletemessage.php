@@ -33,3 +33,5 @@ $string['deleteall_desc'] = 'Read and unread messages can be deleted to save spa
 $string['privacy:metadata'] = 'The local aws plugin does not store any personal data. However, it send the IP of a user that had an error to the sentry server configured in it.';
 $string['harddelete'] = "Hard Delete Messages";
 $string['harddelete_desc'] = "All Deleted messages by this plugin will be deleted from database";
+$string['cleanmessage'] = "Clear Conversations";
+$string['cleanmessage_desc'] = "When Both user delete all messages between them the messages will be erased from database";
