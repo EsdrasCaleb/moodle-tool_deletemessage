@@ -35,7 +35,7 @@ $plugin->requires  = 2018051718; // Requires this Moodle version - at least 3.5 
 $plugin->component = 'tool_deletemessage';
 
 // Software maturity level.
-$plugin->maturity = MATURITY_RC;
+$plugin->maturity = MATURITY_STABLE;
 
 // User-friendly version number.
 $plugin->release = '1';
