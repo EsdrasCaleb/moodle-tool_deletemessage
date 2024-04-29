@@ -118,6 +118,7 @@ class delete extends scheduled_task {
                     UNION
                     SELECT c.id,0 as user_d,count(DISTINCT m.id) as mensagens FROM {message_conversations} c
                     LEFT JOIN {messages} m on m.conversationid =c.id
+                    WHERE m.id is null
                     GROUP BY c.id
                     HAVING count(m.id) = 0
                     ";
