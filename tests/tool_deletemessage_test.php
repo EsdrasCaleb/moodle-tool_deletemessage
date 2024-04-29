@@ -45,7 +45,7 @@ class tool_deletemessage_test extends \advanced_testcase {
         $this->messagesink = $this->redirectMessages();
         $this->resetAfterTest();
     }
-    
+
     /**
      * Make message to tests
      * @return int message id
@@ -61,18 +61,6 @@ class tool_deletemessage_test extends \advanced_testcase {
 
         if (empty($time)) {
             $time = time();
-        }
-
-        if ($notification) {
-            $record = new \stdClass();
-            $record->useridfrom = $userfrom->id;
-            $record->useridto = $userto->id;
-            $record->subject = 'No subject';
-            $record->fullmessage = $message;
-            $record->smallmessage = $message;
-            $record->timecreated = $time;
-
-            return $DB->insert_record('notifications', $record);
         }
 
         if ($userfrom->id == $userto->id) {
