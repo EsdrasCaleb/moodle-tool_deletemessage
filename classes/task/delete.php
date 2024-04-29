@@ -57,11 +57,13 @@ class delete extends scheduled_task {
         $viewaction = \core_message\api::MESSAGE_ACTION_READ;// 1
         $users = null;
 
-        $types = $individualmessage.','.\core_message\api::MESSAGE_CONVERSATION_TYPE_SELF;
+        $types = $individualmessage;
         if ($configs->deletegroupmessages > 0) {
             $types .= ','.\core_message\api::MESSAGE_CONVERSATION_TYPE_GROUP;
         }
-
+        if ($configs->deletepersonalmessage > 0) {
+            $types .= ','.\core_message\api::MESSAGE_CONVERSATION_TYPE_SELF;
+        }
         if ($configs->deletereadmessages > 0) {
             $reftime = time() - $configs->deletereadmessages;
             $sql = "SELECT distinct userid from {message_conversation_members}";

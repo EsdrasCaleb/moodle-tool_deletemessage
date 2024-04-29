@@ -61,6 +61,10 @@ if (is_siteadmin()) {
             get_string('deletegroupmessages', 'tool_deletemessage'),
             get_string('deletegroupmessages_desc', 'tool_deletemessage'), $default));
 
+        $page->add(new admin_setting_configcheckbox('tool_deletemessage/deletepersonalmessage',
+            get_string('deletepersonalmessage', 'tool_deletemessage'),
+            get_string('deletepersonalmessage_desc', 'tool_deletemessage'), $default));
+
         $ADMIN->add('messaging', $page);
 
     }
