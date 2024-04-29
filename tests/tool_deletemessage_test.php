@@ -79,7 +79,7 @@ class tool_deletemessage_test extends \advanced_testcase {
                 \core_message\api::MESSAGE_CONVERSATION_TYPE_INDIVIDUAL,
                 [
                     $userfrom->id,
-                    $userto->id
+                    $userto->id,
                 ]
             );
             $conversationid = $conversation->id;
