@@ -55,7 +55,7 @@ class tool_deletemessage_test extends \advanced_testcase {
         $message->fullmessageformat = FORMAT_PLAIN;
         $message->fullmessagehtml = $messagetext;
         $message->smallmessage = $messagetext;
-
+        
         return message_send($message);
     }
 
