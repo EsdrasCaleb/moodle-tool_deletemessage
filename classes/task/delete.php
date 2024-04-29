@@ -58,7 +58,7 @@ class delete extends scheduled_task {
         $users = null;
 
         $types = $individualmessage.','.\core_message\api::MESSAGE_CONVERSATION_TYPE_SELF;
-        if($configs->deletegroupmessages > 0) {
+        if ($configs->deletegroupmessages > 0) {
             $types .= ','.\core_message\api::MESSAGE_CONVERSATION_TYPE_GROUP;
         }
 
@@ -76,9 +76,9 @@ class delete extends scheduled_task {
 
                 $readmessagens = $DB->get_records_sql($sql, ['types' => $individualmessage,
                     'timeref' => $reftime, 'actiontype' => $viewaction,
-                    'userref' => $user->userid,'timeref2' => $reftime,
+                    'userref' => $user->userid, 'timeref2' => $reftime,
                 ]);
-                foreach ($readmessagens as $readmessage) {// Just soft delete if both has saw it will be hard deleted
+                foreach ($readmessagens as $readmessage) {// Just soft delete if both has saw it will be hard deleted.
                     \core_message\api::delete_message($readmessage->useridfrom, $readmessage->messageid);
                 }
             }
@@ -96,10 +96,10 @@ class delete extends scheduled_task {
                         LEFT JOIN {message_user_actions} uad on uad.messageid=m.id
 					    ";
                 $readmessagens = $DB->get_records_sql($sql, ['types' => $individualmessage,
-                    'timeref' => $reftime,'userref' => $user->userid,
+                    'timeref' => $reftime, 'userref' => $user->userid,
                 ]);
                 foreach ($readmessagens as $readmessage) {
-                    if ($configs->harddelete) {// If is old it need to be deleted
+                    if ($configs->harddelete) {// If is old it need to be deleted.
                         hard_delete_message($readmessage->messageid);
                     } else {
                         \core_message\api::delete_message($readmessage->useridfrom, $readmessage->messageid);
