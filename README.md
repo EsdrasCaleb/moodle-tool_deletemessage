@@ -6,7 +6,7 @@ some time. In the same way, Moodle enables you to do notifications.
 To use it go to Administration > Messages > Auto Delete Messages and set the time
 when you want messages to be auto deleted.
 To install the plugin use the admin panel or put it in the tools folder in MOODLE_DIR_ROOT/admin/tool
-
+Now delete group messagens and private messages
 
 License
 =======
