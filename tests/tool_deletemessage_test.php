@@ -106,9 +106,9 @@ class tool_deletemessage_test extends \advanced_testcase {
         require_once($CFG->dirroot.'/admin/tool/deletemessage/locallib.php');
 
         $messageid = $this->make_message();
-        $this->assertNotEmpty($DB->get_records('message', ['id' => $messageid]));
+        $this->assertNotEmpty($DB->get_records('messages', ['id' => $messageid]));
         hard_delete_message($messageid);
-        $this->assertEmpty($DB->get_records('message', ['id' => $messageid]));
+        $this->assertEmpty($DB->get_records('messages', ['id' => $messageid]));
     }
 
     /**
@@ -123,7 +123,7 @@ class tool_deletemessage_test extends \advanced_testcase {
 
         $cron = new \tool_deletemessage\task\delete();
         $cron->execute();
-        $this->assertNotEmpty($DB->get_records('message', ['id' => $messageid]));
-        $this->assertNotEmpty($DB->get_records('message'));
+        $this->assertNotEmpty($DB->get_records('messages', ['id' => $messageid]));
+        $this->assertNotEmpty($DB->get_records('messages'));
     }
 }
