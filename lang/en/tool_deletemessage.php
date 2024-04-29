@@ -38,4 +38,4 @@ $string['cleanmessage_desc'] = "When Both user delete all messages between them 
 $string['deletegroupmessages'] = "Delete Group Messages";
 $string['deletegroupmessages_desc'] = "Include Group Messagens in filter to delete old and readed messages";
 $string['deletepersonalmessage'] = "Delete Private Messages";
-$string['deletegroupmessages_desc'] = "Delete messages in the personal conversation, messages send by user to himself if they are in filter";
+$string['deletepersonalmessage_desc'] = "Delete messages in the personal conversation, messages send by user to himself if they are in filter";
