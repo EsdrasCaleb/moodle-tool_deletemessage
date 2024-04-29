@@ -37,7 +37,7 @@ class tool_deletemessage_test extends \advanced_testcase {
      * Make message to tests
      * @return int message id
      */
-    private function make_message(){
+    private function make_message() {
         $userfrom = $this->getDataGenerator()->create_user();
         $userto = $this->getDataGenerator()->create_user();
 
@@ -55,7 +55,7 @@ class tool_deletemessage_test extends \advanced_testcase {
         $message->fullmessageformat = FORMAT_PLAIN;
         $message->fullmessagehtml = $messagetext;
         $message->smallmessage = $messagetext;
-        
+
         return message_send($message);
     }
 
