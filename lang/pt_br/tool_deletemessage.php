@@ -35,3 +35,7 @@ $string['harddelete'] = "Deletar Permanentemente Mensagens";
 $string['harddelete_desc'] = "Todas as mensagens deletadas pelo plugin serão excluidas do banco de dados";
 $string['cleanmessage'] = "Limpar Conversas";
 $string['cleanmessage_desc'] = "Quando dois usuários apagam todas as mensagens entre eles as conversas serão apagadas do banco de dados";
+$string['deletegroupmessages'] = "Deletar Mensagens de Grupo";
+$string['deletegroupmessages_desc'] = "Incluir mensagens de grupo nas mensagens a serem apagadas apos leitura";
+$string['deletepersonalmessage'] = "Deletar Mensagens Privadas";
+$string['deletepersonalmessage_desc'] = "Incluir as mensagens do usuário para ele mesmo para serem apagadas pelo filtro";
