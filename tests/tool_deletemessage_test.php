@@ -100,6 +100,7 @@ class tool_deletemessage_test extends \advanced_testcase {
     /**
      * Test if the hard delection function works
      * @return void
+     * @covers hard_delete_message
      */
     public function test_deleting() {
         global $CFG, $DB;
@@ -114,6 +115,7 @@ class tool_deletemessage_test extends \advanced_testcase {
     /**
      * Test taks of delection to not delete all messages
      * @return void
+     * @covers tool_deletemessage\tast\delete::execute
      */
     public function test_taks_isnotdeleting() {
         global $CFG, $DB;
