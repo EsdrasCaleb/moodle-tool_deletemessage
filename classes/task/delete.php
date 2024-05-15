@@ -81,7 +81,7 @@ class delete extends scheduled_task {
                     'userref' => $user->userid, 'timeref2' => $reftime,
                 ]);
                 foreach ($readmessagens as $readmessage) {// Just soft delete if both has saw it will be hard deleted.
-                    if($readmessage->useridfrom && $DB->record_exists('user', ['id' => $readmessage->useridfrom])) {
+                    if ($readmessage->useridfrom && $DB->record_exists('user', ['id' => $readmessage->useridfrom])) {
                         \core_message\api::delete_message($readmessage->useridfrom, $readmessage->messageid);
                     }
                 }
@@ -105,7 +105,7 @@ class delete extends scheduled_task {
                 foreach ($readmessagens as $readmessage) {
                     if ($configs->harddelete) {// If is old it need to be deleted.
                         hard_delete_message($readmessage->messageid);
-                    } elseif($readmessage->useridfrom && $DB->record_exists('user', ['id' => $readmessage->useridfrom])) {
+                    } else if ($readmessage->useridfrom && $DB->record_exists('user', ['id' => $readmessage->useridfrom])) {
                         \core_message\api::delete_message($readmessage->useridfrom, $readmessage->messageid);
                     }
                 }
