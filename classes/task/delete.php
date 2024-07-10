@@ -69,7 +69,7 @@ class delete extends scheduled_task {
             $sql = "SELECT distinct userid from {message_conversation_members}";
             $users = $DB->get_records_sql($sql);
             foreach ($users as $user) {
-                $sql = "SELECT m.id as messageid,ua.userid FROM {message_conversations} c
+                $sql = "SELECT DISTINCT m.id as messageid,ua.userid FROM {message_conversations} c
                     JOIN {messages} m on m.conversationid =c.id
 					and c.type in (:types) and m.timecreated<:timeref
                     JOIN {message_user_actions} ua on ua.messageid=m.id
@@ -81,7 +81,8 @@ class delete extends scheduled_task {
                     'userref' => $user->userid, 'timeref2' => $reftime,
                 ]);
                 foreach ($readmessagens as $readmessage) {// Just soft delete if both has saw it will be hard deleted.
-                    if ($readmessage->useridfrom && $DB->record_exists('user', ['id' => $readmessage->useridfrom])) {
+                    if ($readmessage->useridfrom && $DB->record_exists('user', ['id' => $readmessage->useridfrom]) &&
+                            $DB->record_exists("messages", ['id' => $readmessage->id])) {
                         \core_message\api::delete_message($readmessage->useridfrom, $readmessage->messageid);
                     }
                 }
@@ -94,7 +95,7 @@ class delete extends scheduled_task {
             }
             foreach ($users as $user) {
                 $reftime = time() - $configs->deleteallmessages;
-                $sql = "SELECT m.id as messageid,m.useridfrom FROM {message_conversations} c
+                $sql = "SELECT DISTINCT m.id as messageid,m.useridfrom FROM {message_conversations} c
                         JOIN {messages} m on m.conversationid =c.id
                         and c.type in (:types) and m.timecreated<:timeref and m.useridfrom=:userref
                         LEFT JOIN {message_user_actions} uad on uad.messageid=m.id
@@ -105,7 +106,8 @@ class delete extends scheduled_task {
                 foreach ($readmessagens as $readmessage) {
                     if ($configs->harddelete) {// If is old it need to be deleted.
                         hard_delete_message($readmessage->messageid);
-                    } else if ($readmessage->useridfrom && $DB->record_exists('user', ['id' => $readmessage->useridfrom])) {
+                    } else if ($readmessage->useridfrom && $DB->record_exists('user', ['id' => $readmessage->useridfrom]) &&
+                            $DB->record_exists("messages", ['id' => $readmessage->id])) {
                         \core_message\api::delete_message($readmessage->useridfrom, $readmessage->messageid);
                     }
                 }
