@@ -36,7 +36,7 @@ namespace tool_deletemessage;
  */
 class tool_deletemessage_test extends \advanced_testcase {
 
-    /* @var $messagesink message sink */
+    /** @var $messagesink message sink **/
     private $messagesink;
 
     /**
