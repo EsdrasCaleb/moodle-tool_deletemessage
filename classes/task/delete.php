@@ -85,7 +85,7 @@ class delete extends scheduled_task {
                     if ($readmessage &&
                             isset($readmessage->useridfrom) &&
                             $DB->record_exists('user', ['id' => $readmessage->useridfrom]) &&
-                            $DB->record_exists("messages", ['id' => $readmessage->id])) {
+                            $DB->record_exists("messages", ['id' => $readmessage->messageid])) {
                         \core_message\api::delete_message($readmessage->useridfrom, $readmessage->messageid);
                     }
                 }
@@ -110,7 +110,7 @@ class delete extends scheduled_task {
                     if ($configs->harddelete) {// If is old it need to be deleted.
                         hard_delete_message($readmessage->messageid);
                     } else if ($readmessage->useridfrom && $DB->record_exists('user', ['id' => $readmessage->useridfrom]) &&
-                            $DB->record_exists("messages", ['id' => $readmessage->id])) {
+                            $DB->record_exists("messages", ['id' => $readmessage->messageid])) {
                         \core_message\api::delete_message($readmessage->useridfrom, $readmessage->messageid);
                     }
                 }
@@ -128,7 +128,7 @@ class delete extends scheduled_task {
                     UNION
                     SELECT c.id,0 as user_d,count(DISTINCT m.id) as mensagens FROM {message_conversations} c
                     LEFT JOIN {messages} m on m.conversationid =c.id
-                    WHERE m.id is null
+                    WHERE m.id is null and c.itemtype is null
                     GROUP BY c.id
                     HAVING count(m.id) = 0
                     ";
