@@ -75,7 +75,9 @@ if (is_siteadmin()) {
                 'tool_deletemessage/cleanmessage',
                 get_string('cleanmessage', 'tool_deletemessage'),
                 get_string('cleanmessage_desc', 'tool_deletemessage'),
-                $default));
+                $default
+            )
+        );
 
         $page->add(
             new admin_setting_configcheckbox(
