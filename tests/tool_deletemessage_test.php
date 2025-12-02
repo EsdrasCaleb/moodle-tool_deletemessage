@@ -35,7 +35,6 @@ namespace tool_deletemessage;
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 final class tool_deletemessage_test extends \advanced_testcase {
-
     /** @var $messagesink message sink **/
     private $messagesink;
 
@@ -55,7 +54,7 @@ final class tool_deletemessage_test extends \advanced_testcase {
      * Make message to tests
      * @return int message id
      */
-    private function make_message():int {
+    private function make_message(): int {
         global $DB;
 
         $userfrom = $this->getDataGenerator()->create_user();
@@ -107,9 +106,9 @@ final class tool_deletemessage_test extends \advanced_testcase {
      * @return void
      * @covers \hard_delete_message
      */
-    public function test_deleting(): void  {
+    public function test_deleting(): void {
         global $CFG, $DB;
-        require_once($CFG->dirroot.'/admin/tool/deletemessage/locallib.php');
+        require_once($CFG->dirroot . '/admin/tool/deletemessage/locallib.php');
 
         $messageid = $this->make_message();
         $this->assertNotEmpty($DB->get_records('messages', ['id' => $messageid]));
@@ -122,9 +121,9 @@ final class tool_deletemessage_test extends \advanced_testcase {
      * @return void
      * @covers \tool_deletemessage\task\delete::execute
      */
-    public function test_taks_isnotdeleting(): void  {
+    public function test_taks_isnotdeleting(): void {
         global $CFG, $DB;
-        require_once($CFG->dirroot.'/admin/tool/deletemessage/locallib.php');
+        require_once($CFG->dirroot . '/admin/tool/deletemessage/locallib.php');
 
         $messageid = $this->make_message();
 

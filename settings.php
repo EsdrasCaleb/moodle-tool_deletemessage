@@ -42,30 +42,59 @@ if (is_siteadmin()) {
             62899200 => new lang_string('numyears', 'moodle', 2),
         ];
 
-        $page->add(new admin_setting_configselect('tool_deletemessage/deletereadmessages',
-            get_string('deleteread', 'tool_deletemessage'),
-            get_string('deleteread_desc', 'tool_deletemessage'), $default, $options));
-        $page->add(new admin_setting_configselect('tool_deletemessage/deleteallmessages',
-            get_string('deleteall', 'tool_deletemessage'),
-            get_string('deleteall_desc', 'tool_deletemessage'), $default, $options));
+        $page->add(
+            new admin_setting_configselect(
+                'tool_deletemessage/deletereadmessages',
+                get_string('deleteread', 'tool_deletemessage'),
+                get_string('deleteread_desc', 'tool_deletemessage'),
+                $default,
+                $options
+            )
+        );
+        $page->add(
+            new admin_setting_configselect(
+                'tool_deletemessage/deleteallmessages',
+                get_string('deleteall', 'tool_deletemessage'),
+                get_string('deleteall_desc', 'tool_deletemessage'),
+                $default,
+                $options
+            )
+        );
 
-        $page->add(new admin_setting_configcheckbox('tool_deletemessage/harddelete',
-            get_string('harddelete', 'tool_deletemessage'),
-            get_string('harddelete_desc', 'tool_deletemessage'), $default));
+        $page->add(
+            new admin_setting_configcheckbox(
+                'tool_deletemessage/harddelete',
+                get_string('harddelete', 'tool_deletemessage'),
+                get_string('harddelete_desc', 'tool_deletemessage'),
+                $default
+            )
+        );
 
-        $page->add(new admin_setting_configcheckbox('tool_deletemessage/cleanmessage',
-            get_string('cleanmessage', 'tool_deletemessage'),
-            get_string('cleanmessage_desc', 'tool_deletemessage'), $default));
+        $page->add(
+            new admin_setting_configcheckbox(
+                'tool_deletemessage/cleanmessage',
+                get_string('cleanmessage', 'tool_deletemessage'),
+                get_string('cleanmessage_desc', 'tool_deletemessage'),
+                $default));
 
-        $page->add(new admin_setting_configcheckbox('tool_deletemessage/deletegroupmessages',
-            get_string('deletegroupmessages', 'tool_deletemessage'),
-            get_string('deletegroupmessages_desc', 'tool_deletemessage'), $default));
+        $page->add(
+            new admin_setting_configcheckbox(
+                'tool_deletemessage/deletegroupmessages',
+                get_string('deletegroupmessages', 'tool_deletemessage'),
+                get_string('deletegroupmessages_desc', 'tool_deletemessage'),
+                $default
+            )
+        );
 
-        $page->add(new admin_setting_configcheckbox('tool_deletemessage/deletepersonalmessage',
-            get_string('deletepersonalmessage', 'tool_deletemessage'),
-            get_string('deletepersonalmessage_desc', 'tool_deletemessage'), $default));
+        $page->add(
+            new admin_setting_configcheckbox(
+                'tool_deletemessage/deletepersonalmessage',
+                get_string('deletepersonalmessage', 'tool_deletemessage'),
+                get_string('deletepersonalmessage_desc', 'tool_deletemessage'),
+                $default
+            )
+        );
 
         $ADMIN->add('messaging', $page);
-
     }
 }

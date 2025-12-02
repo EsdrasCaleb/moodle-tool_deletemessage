@@ -51,7 +51,7 @@ class delete extends scheduled_task {
     public function execute() {
         mtrace(get_string('taskname', 'tool_deletemessage'));
         global $DB, $CFG;
-        require_once($CFG->dirroot.'/admin/tool/deletemessage/locallib.php');
+        require_once($CFG->dirroot . '/admin/tool/deletemessage/locallib.php');
         $configs = get_config('tool_deletemessage');
         $individualmessage = \core_message\api::MESSAGE_CONVERSATION_TYPE_INDIVIDUAL;// 1
         $delteaction = \core_message\api::MESSAGE_ACTION_DELETED;// 2
@@ -60,10 +60,10 @@ class delete extends scheduled_task {
 
         $types = $individualmessage;
         if ($configs->deletegroupmessages > 0) {
-            $types .= ','.\core_message\api::MESSAGE_CONVERSATION_TYPE_GROUP;
+            $types .= ',' . \core_message\api::MESSAGE_CONVERSATION_TYPE_GROUP;
         }
         if ($configs->deletepersonalmessage > 0) {
-            $types .= ','.\core_message\api::MESSAGE_CONVERSATION_TYPE_SELF;
+            $types .= ',' . \core_message\api::MESSAGE_CONVERSATION_TYPE_SELF;
         }
         if ($configs->deletereadmessages > 0) {
             $reftime = time() - $configs->deletereadmessages;
@@ -82,10 +82,11 @@ class delete extends scheduled_task {
                     'userref' => $user->userid, 'timeref2' => $reftime,
                 ]);
                 foreach ($readmessagens as $readmessage) {// Just soft delete if both has saw it will be hard deleted.
-                    if ($readmessage &&
-                            isset($readmessage->useridfrom) &&
-                            $DB->record_exists('user', ['id' => $readmessage->useridfrom]) &&
-                            $DB->record_exists("messages", ['id' => $readmessage->messageid])) {
+                    if (
+                        $readmessage && isset($readmessage->useridfrom) &&
+                        $DB->record_exists('user', ['id' => $readmessage->useridfrom]) &&
+                        $DB->record_exists("messages", ['id' => $readmessage->messageid])
+                    ) {
                         \core_message\api::delete_message($readmessage->useridfrom, $readmessage->messageid);
                     }
                 }
@@ -109,8 +110,11 @@ class delete extends scheduled_task {
                 foreach ($readmessagens as $readmessage) {
                     if ($configs->harddelete) {// If is old it need to be deleted.
                         hard_delete_message($readmessage->messageid);
-                    } else if ($readmessage->useridfrom && $DB->record_exists('user', ['id' => $readmessage->useridfrom]) &&
-                            $DB->record_exists("messages", ['id' => $readmessage->messageid])) {
+                    } else if (
+                        $readmessage->useridfrom &&
+                        $DB->record_exists('user', ['id' => $readmessage->useridfrom]) &&
+                        $DB->record_exists("messages", ['id' => $readmessage->messageid])
+                    ) {
                         \core_message\api::delete_message($readmessage->useridfrom, $readmessage->messageid);
                     }
                 }
