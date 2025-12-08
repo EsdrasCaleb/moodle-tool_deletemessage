@@ -102,7 +102,7 @@ class delete extends scheduled_task {
 
             foreach ($users as $user) {
                 $reftime = time() - $configs->deleteallmessages;
-                list($insql, $inparams) = $DB->get_in_or_equal($types, SQL_PARAMS_NAMED, 'typ');
+                [$insql, $inparams] = $DB->get_in_or_equal($types, SQL_PARAMS_NAMED, 'typ');
                 $sql = "SELECT DISTINCT m.id as messageid, m.useridfrom
         FROM {message_conversations} c
         JOIN {messages} m ON m.conversationid = c.id
@@ -112,7 +112,7 @@ class delete extends scheduled_task {
         LEFT JOIN {message_user_actions} uad ON uad.messageid = m.id";
                 $params = array_merge($inparams, [
                     'timeref' => $reftime,
-                    'userref' => $user->userid
+                    'userref' => $user->userid,
                 ]);
                 $readmessages = $DB->get_records_sql($sql, $params);
                 foreach ($readmessages as $readmessage) {
