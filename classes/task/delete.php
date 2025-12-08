@@ -58,13 +58,15 @@ class delete extends scheduled_task {
         $viewaction = \core_message\api::MESSAGE_ACTION_READ;// 1
         $users = null;
 
-        $types = $individualmessage;
+        $types = [$individualmessage];
+
         if ($configs->deletegroupmessages > 0) {
-            $types .= ',' . \core_message\api::MESSAGE_CONVERSATION_TYPE_GROUP;
+            $types[] = \core_message\api::MESSAGE_CONVERSATION_TYPE_GROUP;
         }
         if ($configs->deletepersonalmessage > 0) {
-            $types .= ',' . \core_message\api::MESSAGE_CONVERSATION_TYPE_SELF;
+            $types[] = \core_message\api::MESSAGE_CONVERSATION_TYPE_SELF;
         }
+
         if ($configs->deletereadmessages > 0) {
             $reftime = time() - $configs->deletereadmessages;
             $sql = "SELECT distinct userid from {message_conversation_members}";
@@ -93,21 +95,27 @@ class delete extends scheduled_task {
             }
         }
         if ($configs->deleteallmessages > 0) {
-            if (!$user) {
+            if (!$users) {
                 $sql = "SELECT distinct userid from {message_conversation_members}";
                 $users = $DB->get_records_sql($sql);
             }
+
             foreach ($users as $user) {
                 $reftime = time() - $configs->deleteallmessages;
-                $sql = "SELECT DISTINCT m.id as messageid,m.useridfrom FROM {message_conversations} c
-                        JOIN {messages} m on m.conversationid =c.id
-                        and c.type in (:types) and m.timecreated<:timeref and m.useridfrom=:userref
-                        LEFT JOIN {message_user_actions} uad on uad.messageid=m.id
-					    ";
-                $readmessagens = $DB->get_records_sql($sql, ['types' => $individualmessage,
-                    'timeref' => $reftime, 'userref' => $user->userid,
+                list($insql, $inparams) = $DB->get_in_or_equal($types, SQL_PARAMS_NAMED, 'typ');
+                $sql = "SELECT DISTINCT m.id as messageid, m.useridfrom
+        FROM {message_conversations} c
+        JOIN {messages} m ON m.conversationid = c.id
+        AND c.type $insql
+        AND m.timecreated < :timeref
+        AND m.useridfrom = :userref
+        LEFT JOIN {message_user_actions} uad ON uad.messageid = m.id";
+                $params = array_merge($inparams, [
+                    'timeref' => $reftime,
+                    'userref' => $user->userid
                 ]);
-                foreach ($readmessagens as $readmessage) {
+                $readmessages = $DB->get_records_sql($sql, $params);
+                foreach ($readmessages as $readmessage) {
                     if ($configs->harddelete) {// If is old it need to be deleted.
                         hard_delete_message($readmessage->messageid);
                     } else if (
